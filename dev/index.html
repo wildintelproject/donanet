@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#donanet-documentation" class="md-skip">
+        <a href="#documentation-map" class="md-skip">
           Skip to content
         </a>
       
@@ -350,8 +350,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -393,8 +391,6 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
-  
-    
   
   
     <label class="md-nav__title" for="__toc">
@@ -558,8 +554,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -606,14 +600,21 @@
 
 
 
-<h1 id="donanet-documentation">DonaNet Documentation</h1>
+  <h1>Home</h1>
+
+<div class="highlight"><pre><span></span><code># DonaNet Documentation
+</code></pre></div>
 <p>Welcome to the DonaNet documentation.</p>
-<p>DonaNet provides a CLI (<code>donanet.py</code>) that drives Ultralytics YOLO for the full
-training → evaluation → inference lifecycle on wildlife imagery.</p>
+<p><strong>DonaNet</strong> is a neural network designed to detect and classify the mammals that inhabit
+<a href="https://www.miteco.gob.es/es/red-parques-nacionales/nuestros-parques/donana/">Doñana National Park</a> (Spain).</p>
+<p>This project provides the <strong>pre-trained weights</strong> of a <a href="https://docs.ultralytics.com/">YOLO</a> network
+specifically adapted to Doñana, as well as the <strong><code>donanet.py</code></strong> CLI, which allows you to retrain
+the network with new image datasets.</p>
 <p><img alt="WildINTEL" src="img/wildIntel_logo.webp" /></p>
 <hr />
 <h2 id="documentation-map">Documentation Map</h2>
 <ul>
+<li><a href="donanet-model/">DonaNet Model</a></li>
 <li><a href="installation-guide/">Installation Guide</a></li>
 <li><a href="user-guide/">User Guide</a></li>
 <li><a href="admin-guide/">Administrator Guide</a></li>
