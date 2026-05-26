@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://wildintelproject.github.io/donanet/0.1.0/</loc>
+         <lastmod>2026-05-26</lastmod>
+    </url>
+    <url>
+         <loc>https://wildintelproject.github.io/donanet/0.1.0/about/</loc>
+         <lastmod>2026-05-26</lastmod>
+    </url>
+    <url>
+         <loc>https://wildintelproject.github.io/donanet/0.1.0/admin-guide/</loc>
+         <lastmod>2026-05-26</lastmod>
+    </url>
+    <url>
+         <loc>https://wildintelproject.github.io/donanet/0.1.0/donanet-model/</loc>
+         <lastmod>2026-05-26</lastmod>
+    </url>
+    <url>
+         <loc>https://wildintelproject.github.io/donanet/0.1.0/features/</loc>
+         <lastmod>2026-05-26</lastmod>
+    </url>
+    <url>
+         <loc>https://wildintelproject.github.io/donanet/0.1.0/installation-guide/</loc>
+         <lastmod>2026-05-26</lastmod>
+    </url>
+    <url>
+         <loc>https://wildintelproject.github.io/donanet/0.1.0/user-guide/</loc>
+         <lastmod>2026-05-26</lastmod>
+    </url>
+</urlset>
