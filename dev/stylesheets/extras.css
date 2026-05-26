@@ -1,0 +1,8 @@
+/* DonaNet – extra MkDocs Material overrides */
+
+:root {
+  --md-primary-fg-color: #2e7d32;
+  --md-primary-fg-color--light: #4caf50;
+  --md-primary-fg-color--dark: #1b5e20;
+  --md-accent-fg-color: #66bb6a;
+}

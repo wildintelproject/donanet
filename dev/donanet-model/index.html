@@ -1,0 +1,1248 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WildINTEL YOLO training, evaluation and inference CLI">
+      
+      
+      
+        <link rel="canonical" href="https://ijfviana.github.io/donanet/dev/donanet-model/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../installation-guide/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../img/WildINTEL_onlyCircle_25.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>DonaNet Model - DonaNet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#donanet-model-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DonaNet" class="md-header__button md-logo" aria-label="DonaNet" data-md-component="logo">
+      
+  <img src="../img/WildINTEL_onlyCircle_25.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DonaNet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DonaNet Model
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  DonaNet Model
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../installation-guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Installation Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../user-guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  User Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../admin-guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Administrator Guide
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DonaNet" class="md-nav__button md-logo" aria-label="DonaNet" data-md-component="logo">
+      
+  <img src="../img/WildINTEL_onlyCircle_25.png" alt="logo">
+
+    </a>
+    DonaNet
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DonaNet Model
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DonaNet Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detected-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detected Classes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Dataset
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Training Dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class distribution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataset-split-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset split strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Specifications
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-and-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context and Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Administrator Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detected-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detected Classes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Dataset
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Training Dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#class-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class distribution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataset-split-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset split strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#training-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training Specifications
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context-and-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context and Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="donanet-model-overview">DonaNet — Model Overview</h1>
+<p><strong>DonaNet</strong> is a one-stage YOLO neural network trained to detect and classify the mammals and
+other wildlife present in camera-trap images from
+<a href="https://www.miteco.gob.es/es/red-parques-nacionales/nuestros-parques/donana/">Doñana National Park</a>
+(Andalusia, Spain). In a single forward pass it simultaneously localises each animal in the image
+and assigns it a species-level label, making it practical for large-scale automated annotation of
+camera-trap image streams.</p>
+<p>The model was developed in the context of the
+<a href="https://wildintel.eu/">WildINTEL project</a>, funded by Biodiversa+ (Joint Research Call 2022–2023).</p>
+<hr />
+<h2 id="architecture">Architecture</h2>
+<p>DonaNet is based on the <strong>YOLOv8x6</strong> architecture from
+<a href="https://docs.ultralytics.com/">Ultralytics</a>, initialised from COCO pretrained weights and
+fine-tuned end-to-end on the Doñana camera-trap dataset. Unlike two-stage pipelines that run a
+detector and a classifier sequentially, DonaNet performs detection and species classification
+jointly in a single inference step.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base architecture</td>
+<td>YOLOv8x6</td>
+</tr>
+<tr>
+<td>Pretrained starting point</td>
+<td>COCO</td>
+</tr>
+<tr>
+<td>Task</td>
+<td>Detection + classification</td>
+</tr>
+<tr>
+<td>Output classes</td>
+<td>16 (see table below)</td>
+</tr>
+<tr>
+<td>Input resolution</td>
+<td>832 × 832 px</td>
+</tr>
+<tr>
+<td>Parameters</td>
+<td>≈ 68 M</td>
+</tr>
+<tr>
+<td>Computational cost</td>
+<td>≈ 435.68 GFLOPs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="detected-classes">Detected Classes</h2>
+<p>The model outputs 16 classes: 13 mammal species, birds (as a single class), humans, and vehicles.
+Empty images — those containing no annotated object — were used as negative training examples but
+are not a separate output class.</p>
+<table>
+<thead>
+<tr>
+<th>Class label</th>
+<th>Common name (EN)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Lynx pardinus</em></td>
+<td>Iberian lynx</td>
+<td>Endangered; flagship species of Doñana</td>
+</tr>
+<tr>
+<td><em>Sus scrofa</em></td>
+<td>Wild boar</td>
+<td></td>
+</tr>
+<tr>
+<td><em>Cervus elaphus</em></td>
+<td>Red deer</td>
+<td></td>
+</tr>
+<tr>
+<td><em>Dama dama</em></td>
+<td>Fallow deer</td>
+<td></td>
+</tr>
+<tr>
+<td><em>Equus</em> sp.</td>
+<td>Horse / donkey</td>
+<td>Semi-free-ranging horses of Doñana</td>
+</tr>
+<tr>
+<td><em>Felis catus</em></td>
+<td>Feral cat</td>
+<td></td>
+</tr>
+<tr>
+<td><em>Genetta genetta</em></td>
+<td>Common genet</td>
+<td></td>
+</tr>
+<tr>
+<td><em>Bos taurus</em></td>
+<td>Cattle</td>
+<td>Free-ranging cattle</td>
+</tr>
+<tr>
+<td><em>Meles meles</em></td>
+<td>European badger</td>
+<td></td>
+</tr>
+<tr>
+<td><em>Vulpes vulpes</em></td>
+<td>Red fox</td>
+<td></td>
+</tr>
+<tr>
+<td><em>Canis familiaris</em></td>
+<td>Dog</td>
+<td></td>
+</tr>
+<tr>
+<td>Lagomorph</td>
+<td>Rabbit / hare</td>
+<td>Merges <em>Oryctolagus cuniculus</em> and <em>Lepus granatensis</em></td>
+</tr>
+<tr>
+<td><em>Herpestes ichneumon</em></td>
+<td>Egyptian mongoose</td>
+<td></td>
+</tr>
+<tr>
+<td>Ave</td>
+<td>Bird (any species)</td>
+<td>All bird species collapsed into one class</td>
+</tr>
+<tr>
+<td>Homo sapiens</td>
+<td>Human</td>
+<td></td>
+</tr>
+<tr>
+<td>Vehicle</td>
+<td>Vehicle</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="training-dataset">Training Dataset</h2>
+<p>All experiments were based on a single camera-trap dataset collected in Doñana National Park.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total images</td>
+<td>52,247</td>
+</tr>
+<tr>
+<td>Total bounding-box annotations</td>
+<td>60,100</td>
+</tr>
+<tr>
+<td>Classes</td>
+<td>17 (16 + Empty)</td>
+</tr>
+<tr>
+<td>Annotation format</td>
+<td>YOLO normalised bounding boxes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-distribution">Class distribution</h3>
+<p>The table below shows the number of images and bounding boxes per category across the full
+dataset and each split.</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Total images / bbxs</th>
+<th>Train images / bbxs</th>
+<th>Val images / bbxs</th>
+<th>Test images / bbxs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ave</td>
+<td>1,704 / 2,576</td>
+<td>1,317 / 2,033</td>
+<td>195 / 301</td>
+<td>192 / 242</td>
+</tr>
+<tr>
+<td><em>Bos taurus</em></td>
+<td>3,001 / 6,002</td>
+<td>2,480 / 5,157</td>
+<td>221 / 388</td>
+<td>300 / 457</td>
+</tr>
+<tr>
+<td><em>Canis familiaris</em></td>
+<td>1,591 / 1,844</td>
+<td>1,288 / 1,487</td>
+<td>153 / 187</td>
+<td>150 / 170</td>
+</tr>
+<tr>
+<td><em>Cervus elaphus</em></td>
+<td>3,034 / 4,528</td>
+<td>2,522 / 3,773</td>
+<td>207 / 276</td>
+<td>305 / 479</td>
+</tr>
+<tr>
+<td><em>Dama dama</em></td>
+<td>2,998 / 3,862</td>
+<td>2,476 / 3,115</td>
+<td>295 / 411</td>
+<td>227 / 336</td>
+</tr>
+<tr>
+<td>Empty</td>
+<td>7,935 / —</td>
+<td>5,877 / —</td>
+<td>1,022 / —</td>
+<td>1,036 / —</td>
+</tr>
+<tr>
+<td><em>Equus</em> sp.</td>
+<td>3,108 / 7,360</td>
+<td>2,502 / 5,885</td>
+<td>303 / 602</td>
+<td>303 / 873</td>
+</tr>
+<tr>
+<td><em>Felis catus</em></td>
+<td>3,418 / 3,455</td>
+<td>1,417 / 1,444</td>
+<td>1,001 / 1,006</td>
+<td>1,000 / 1,005</td>
+</tr>
+<tr>
+<td><em>Genetta genetta</em></td>
+<td>1,745 / 1,799</td>
+<td>1,428 / 1,474</td>
+<td>165 / 167</td>
+<td>152 / 158</td>
+</tr>
+<tr>
+<td><em>Herpestes ichneumon</em></td>
+<td>2,864 / 3,631</td>
+<td>2,322 / 2,951</td>
+<td>260 / 326</td>
+<td>282 / 354</td>
+</tr>
+<tr>
+<td>Homo sapiens</td>
+<td>2,823 / 4,243</td>
+<td>2,113 / 3,054</td>
+<td>344 / 578</td>
+<td>366 / 611</td>
+</tr>
+<tr>
+<td>Lagomorph</td>
+<td>5,278 / 5,581</td>
+<td>3,530 / 3,742</td>
+<td>872 / 927</td>
+<td>876 / 912</td>
+</tr>
+<tr>
+<td><em>Lynx pardinus</em></td>
+<td>2,872 / 4,006</td>
+<td>2,307 / 3,227</td>
+<td>265 / 359</td>
+<td>300 / 420</td>
+</tr>
+<tr>
+<td><em>Meles meles</em></td>
+<td>3,688 / 3,797</td>
+<td>3,081 / 3,180</td>
+<td>350 / 357</td>
+<td>257 / 260</td>
+</tr>
+<tr>
+<td><em>Sus scrofa</em></td>
+<td>3,035 / 4,120</td>
+<td>2,498 / 3,373</td>
+<td>288 / 360</td>
+<td>249 / 387</td>
+</tr>
+<tr>
+<td>Vehicle</td>
+<td>228 / 228</td>
+<td>167 / 167</td>
+<td>31 / 31</td>
+<td>30 / 30</td>
+</tr>
+<tr>
+<td><em>Vulpes vulpes</em></td>
+<td>2,925 / 3,068</td>
+<td>2,452 / 2,592</td>
+<td>275 / 277</td>
+<td>198 / 199</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>52,247 / 60,100</strong></td>
+<td><strong>39,777 / 46,654</strong></td>
+<td><strong>6,247 / 6,553</strong></td>
+<td><strong>6,223 / 6,893</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dataset-split-strategy">Dataset split strategy</h3>
+<p>To prevent information leakage caused by near-identical images appearing in both training and
+test sets (a common problem with camera-trap sequences), the dataset was partitioned by
+<strong>camera location and temporal sequence</strong> rather than by random image splitting. A temporal
+sequence was defined as a set of consecutive images captured with less than 90 seconds between
+them. All images from the same camera location and temporal sequence were assigned exclusively to
+a single subset. The resulting split ratio was approximately <strong>80 : 10 : 10</strong>
+(train : val : test), though exact counts vary due to the spatial and temporal constraints of
+camera-trap sequences.</p>
+<hr />
+<h2 id="training-specifications">Training Specifications</h2>
+<p>DonaNet (YOLO-1stage) was trained as an end-to-end one-stage model using the
+<a href="https://docs.ultralytics.com/">Ultralytics</a> training pipeline.</p>
+<table>
+<thead>
+<tr>
+<th>Hyperparameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Framework</td>
+<td>PyTorch (via Ultralytics)</td>
+</tr>
+<tr>
+<td>Input resolution</td>
+<td>832 × 832 px</td>
+</tr>
+<tr>
+<td>Batch size</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Initial learning rate</td>
+<td>lr0 = 1 × 10⁻⁴</td>
+</tr>
+<tr>
+<td>Final learning rate</td>
+<td>lrf = 0.01</td>
+</tr>
+<tr>
+<td>Max epochs</td>
+<td>1,000</td>
+</tr>
+<tr>
+<td>Early stopping patience</td>
+<td>100 consecutive epochs</td>
+</tr>
+<tr>
+<td>Seeds</td>
+<td>0, 2, 10 (three independent runs)</td>
+</tr>
+<tr>
+<td>Final training lengths</td>
+<td>157, 218, and 212 epochs</td>
+</tr>
+</tbody>
+</table>
+<p>The model was trained on the full 17-class Doñana dataset (Table 1 in the paper) to perform
+localisation and class assignment simultaneously within a single architecture over the harmonised
+16-class label space (Empty images were used as negative training examples but not as a
+prediction class).</p>
+<hr />
+<h2 id="evaluation">Evaluation</h2>
+<p>Performance was evaluated on the held-out test split using <strong>Precision</strong>, <strong>Recall</strong>, <strong>F1
+score</strong>, and <strong>Matthews Correlation Coefficient (MCC)</strong> as the primary metrics. Both
+micro-averaged (instance-weighted) and macro-averaged (class-weighted) variants were reported to
+account for class imbalance.</p>
+<p>For object detection, bounding-box predictions were matched to ground-truth annotations using
+<strong>Intersection over Union (IoU)</strong> at thresholds of 0.5, 0.6, 0.7, 0.8, and 0.9. A prediction
+was considered correct only when it both localised the object sufficiently well (IoU ≥ threshold)
+and assigned the correct class label.</p>
+<p>Empty images (no annotated objects) were included in the test set as negative examples; any
+detection produced in an empty image was counted as a false positive.</p>
+<h3 id="results">Results</h3>
+<p>On the full 17-class annotation task, DonaNet achieved:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Macro F1</td>
+<td>89.2 %</td>
+</tr>
+<tr>
+<td>MCC</td>
+<td>0.885</td>
+</tr>
+</tbody>
+</table>
+<p>These results were obtained on the same Doñana test split used throughout the study. For
+comparison, the best two-stage pipeline (DeepFaune detector + ViT-Large classifier) achieved
+95.6% F1 and 0.95 MCC on the same task, at the cost of a substantially higher computational
+footprint and a more complex inference workflow.</p>
+<hr />
+<h2 id="context-and-reference">Context and Reference</h2>
+<p>DonaNet was developed and evaluated as part of a broader study comparing one-stage and two-stage
+annotation workflows for camera-trap images in Doñana National Park. The study is described in
+full in the following manuscript:</p>
+<blockquote>
+<p><strong>Automatic Annotation of Camera-Trap Images in Doñana National Park.</strong><br />
+Departamento de Ciencias Integradas, Facultad de Ciencias Experimentales,<br />
+Universidad de Huelva — Campus El Carmen, Avda. Fuerzas Armadas, s/n, 21071 Huelva, Spain.<br />
+<em>(Revised integrated draft, 2025)</em></p>
+</blockquote>
+<p>The study demonstrated that, for the Doñana dataset, separate optimisation of detection and
+classification yields stronger and more balanced annotation performance than a YOLO end-to-end
+approach, and provides practical guidance for selecting computer vision tools in biodiversity
+monitoring applications.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
