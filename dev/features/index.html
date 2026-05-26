@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://wildintelproject.github.io/donanet/dev/installation-guide/">
+        <link rel="canonical" href="https://wildintelproject.github.io/donanet/dev/features/">
       
       
-        <link rel="prev" href="../features/">
+        <link rel="prev" href="../donanet-model/">
       
       
-        <link rel="next" href="../user-guide/">
+        <link rel="next" href="../installation-guide/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Installation Guide - DonaNet</title>
+        <title>Features - DonaNet</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation-guide" class="md-skip">
+        <a href="#features" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Installation Guide
+              Features
             
           </span>
         </div>
@@ -252,9 +252,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../features/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -271,11 +273,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../installation-guide/" class="md-tabs__link">
         
   
   
@@ -435,33 +435,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../features/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Features
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -481,7 +454,7 @@
   <span class="md-ellipsis">
     
   
-    Installation Guide
+    Features
   
 
     
@@ -499,7 +472,7 @@
   <span class="md-ellipsis">
     
   
-    Installation Guide
+    Features
   
 
     
@@ -525,10 +498,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#pre-trained-yolo-network-for-donana" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Pre-trained YOLO network for Doñana
       
     </span>
   </a>
@@ -536,10 +509,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-clone-and-enter-the-project" class="md-nav__link">
+  <a href="#retraining-on-new-datasets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Clone and Enter the Project
+        Retraining on new datasets
       
     </span>
   </a>
@@ -547,71 +520,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-install-python-dependencies" class="md-nav__link">
+  <a href="#interactive-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Install Python Dependencies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Install Python Dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#with-uv-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With uv (recommended)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#with-pip" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With pip
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-verify-the-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Verify the CLI
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-gpu-setup-optional-but-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. GPU Setup (optional but recommended)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-directory-layout-after-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Directory Layout After Installation
+        Interactive CLI
       
     </span>
   </a>
@@ -622,6 +534,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -734,10 +673,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#pre-trained-yolo-network-for-donana" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Pre-trained YOLO network for Doñana
       
     </span>
   </a>
@@ -745,10 +684,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-clone-and-enter-the-project" class="md-nav__link">
+  <a href="#retraining-on-new-datasets" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Clone and Enter the Project
+        Retraining on new datasets
       
     </span>
   </a>
@@ -756,71 +695,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-install-python-dependencies" class="md-nav__link">
+  <a href="#interactive-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Install Python Dependencies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Install Python Dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#with-uv-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With uv (recommended)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#with-pip" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With pip
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-verify-the-cli" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Verify the CLI
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-gpu-setup-optional-but-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. GPU Setup (optional but recommended)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-directory-layout-after-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Directory Layout After Installation
+        Interactive CLI
       
     </span>
   </a>
@@ -844,74 +722,43 @@
 
 
 
-<h1 id="installation-guide">Installation Guide</h1>
-<h2 id="prerequisites">Prerequisites</h2>
+<h1 id="features">Features</h1>
+<h2 id="pre-trained-yolo-network-for-donana">Pre-trained YOLO network for Doñana</h2>
+<p>DonaNet ships with a <strong>ready-to-use YOLO model</strong> specifically trained on camera-trap imagery from
+<a href="https://www.miteco.gob.es/es/red-parques-nacionales/nuestros-parques/donana/">Doñana National Park</a>.
+No training required — download the weights and start detecting mammals immediately.</p>
 <ul>
-<li>Python 3.11 or later (3.12 / 3.13 work too)</li>
-<li><a href="https://docs.astral.sh/uv/">uv</a> <em>(recommended)</em> — or plain <code>pip</code></li>
-<li>A CUDA-capable GPU is <strong>strongly recommended</strong> for training; CPU-only inference works</li>
-<li><code>libGL</code> system library (required by OpenCV, which Ultralytics depends on)</li>
+<li>Detects and classifies the mammal species present in Doñana National Park.</li>
+<li>Optimised for the lighting conditions, vegetation and camera angles typical of the park.</li>
+<li>Based on <a href="https://docs.ultralytics.com/">Ultralytics YOLO</a>, one of the most performant and
+  widely adopted object-detection architectures.</li>
+<li>Weights are versioned and distributed alongside this repository so you always know exactly
+  which model version produced a given result.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Fedora / RHEL</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>mesa-libGL
+<hr />
+<h2 id="retraining-on-new-datasets">Retraining on new datasets</h2>
+<p>The included <strong><code>donanet.py</code></strong> CLI makes it straightforward to fine-tune the network with your
+own image datasets, adapting the model to new species, locations or camera setups.</p>
+<ul>
+<li><strong>Dataset preparation</strong> — automatically splits a raw collection of images and YOLO-format labels
+  into <code>train / val / test</code> partitions with configurable ratios.</li>
+<li><strong>Fine-tuning</strong> — resume training from the provided weights or from any Ultralytics checkpoint,
+  with full control over epochs, batch size and model variant.</li>
+<li><strong>Evaluation</strong> — run inference or evaluation on the test partition and collect standard detection
+  metrics (mAP, precision, recall).</li>
+<li><strong>Inspection</strong> — list available weights and dataset statistics at a glance with <code>donanet info</code>
+  and <code>donanet list-datasets</code>.</li>
+</ul>
+<hr />
+<h2 id="interactive-cli">Interactive CLI</h2>
+<p>All functionality is exposed through an interactive command-line interface built with
+<a href="https://typer.tiangolo.com/">Typer</a> and <a href="https://rich.readthedocs.io/">Rich</a>, providing
+a clean experience with coloured output, progress bars and inline help.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Run inference with the pre-trained weights</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python<span class="w"> </span>donanet.py<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--weights<span class="w"> </span>weights/donana/best.pt
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Debian / Ubuntu</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libgl1
-</code></pre></div>
-<hr />
-<h2 id="1-clone-and-enter-the-project">1. Clone and Enter the Project</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>&lt;your-repo-url&gt;
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>donanet
-</code></pre></div>
-<hr />
-<h2 id="2-install-python-dependencies">2. Install Python Dependencies</h2>
-<h3 id="with-uv-recommended">With uv (recommended)</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>sync
-</code></pre></div>
-<h3 id="with-pip">With pip</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</code></pre></div>
-<hr />
-<h2 id="3-verify-the-cli">3. Verify the CLI</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>donanet.py<span class="w"> </span>--help
-</code></pre></div>
-<p>Expected output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a> Usage: donanet.py [OPTIONS] COMMAND [ARGS]...
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a> DonaNet — WildINTEL YOLO training &amp; inference CLI
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>╭─ Commands ──────────────────────────────────────────────────────────────────╮
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│ prepare-dataset  Split raw images + labels into train / val / test.         │
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│ train            Train a YOLO model on the dataset.                         │
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│ test             Run inference or evaluation on the test partition.          │
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│ list-datasets    Show dataset partitions and image counts.                  │
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│ info             Display available weights and dataset summary.              │
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>╰─────────────────────────────────────────────────────────────────────────────╯
-</code></pre></div>
-<hr />
-<h2 id="4-gpu-setup-optional-but-recommended">4. GPU Setup (optional but recommended)</h2>
-<p>Ultralytics automatically uses the first available CUDA device.
-To force CPU:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>donanet.py<span class="w"> </span>train<span class="w"> </span>--device<span class="w"> </span>cpu<span class="w"> </span>...
-</code></pre></div>
-<p>To use a specific GPU:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>donanet.py<span class="w"> </span>train<span class="w"> </span>--device<span class="w"> </span><span class="m">0</span><span class="w"> </span>...
-</code></pre></div>
-<hr />
-<h2 id="5-directory-layout-after-installation">5. Directory Layout After Installation</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>donanet/
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>├── donanet.py          ← CLI entry point
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├── pyproject.toml
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>├── dataset/
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>│   ├── train/images/
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>│   ├── train/labels/
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>│   ├── val/images/
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>│   ├── val/labels/
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>│   ├── test/images/
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>│   └── test/labels/
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>├── weights/            ← best.pt / last.pt stored here after training
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>├── runs/               ← Ultralytics training artefacts
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>└── docs/
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Fine-tune on a new dataset</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>python<span class="w"> </span>donanet.py<span class="w"> </span>train<span class="w"> </span>--model<span class="w"> </span>weights/donana/best.pt<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span><span class="w"> </span>--name<span class="w"> </span>my_run
 </code></pre></div>
 
 
