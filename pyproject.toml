@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "donanet"
 version = "0.1.0"
@@ -12,6 +16,18 @@ dependencies = [
   "pyyaml>=6.0",
   "scikit-learn>=1.4.0",
   "tqdm>=4.66.0",
+  "openpyxl>=3.1.0",
+]
+
+[project.optional-dependencies]
+docs = [
+  "mkdocs>=1.6.1",
+  "mkdocs-material>=9.7.6",
+  "mike>=2.1.0",
+]
+configure = [
+  "jinja2>=3.1",
+  "psutil>=5.9",
 ]
 
 [dependency-groups]
@@ -27,3 +43,7 @@ configure = [
 
 [project.scripts]
 donanet = "donanet:app"
+
+[tool.setuptools]
+py-modules = ["donanet"]
+include-package-data = false
