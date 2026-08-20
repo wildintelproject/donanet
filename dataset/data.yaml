@@ -1,0 +1,26 @@
+path: .
+
+train: images/train
+val: images/val
+test: images/test
+
+nc: 17  # Number of classes
+
+names:
+  0: 'Ave'
+  1: 'Felis catus'
+  2: 'Bos taurus'
+  3: 'Canis familiaris'
+  4: 'Herpestes ichneumon'
+  5: 'Meles meles'
+  6: 'Oryctolagus cuniculus'
+  7: 'Dama dama'
+  8: 'Genetta genetta'
+  9: 'Equus sp'
+  10: 'Homo sapiens'
+  11: 'Lepus granatensis'
+  12: 'Lynx pardinus'
+  13: 'Cervus elaphus'
+  14: 'Vulpes vulpes'
+  15: 'Sus scrofa'
+  16: 'Empty'

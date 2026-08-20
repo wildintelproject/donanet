@@ -1,9 +1,14 @@
 # Installation Guide
 
+This guide explains how to install DonaNet and prepare the local environment for training, testing and inspecting YOLO-based mammal detection models for Doñana National Park.
 ## Prerequisites
 
+Before installing DonaNet, make sure the following software is available on your system:
+
 - Git
-- A CUDA-capable GPU is **strongly recommended** for training; CPU-only inference works
+- Python 3.11 or newer
+- A CUDA-capable NVIDIA GPU is strongly recommended for training
+- CPU-only execution is supported, but training will be significantly slower
 
 ---
 
@@ -13,8 +18,6 @@
 git clone https://github.com/wildintelproject/donanet.git
 cd donanet
 ```
-
-After cloning, choose one of the two available installation methods:
 
 ---
 
@@ -161,15 +164,38 @@ donanet/
 ├── setup.sh            ← environment setup script
 ├── Dockerfile
 ├── pyproject.toml
+├── uv.lock             ← locked dependency versions
 ├── profiles/           ← generated Docker profiles (one directory per profile)
-├── dataset/
-│   ├── train/images/
-│   ├── train/labels/
-│   ├── val/images/
-│   ├── val/labels/
-│   ├── test/images/
-│   └── test/labels/
-├── weights/            ← best.pt / last.pt stored here after training
-├── runs/               ← Ultralytics training artefacts
+├── dataset/ 
+│ ├── images/ 
+│ │ ├── train/ 
+│ │ ├── val/ 
+│ │ └── test/ 
+│ ├── labels/ 
+│ │ ├── train/ 
+│ │ ├── val/ 
+│ │ └── test/ 
+│ ├── data.yaml         ← YOLO dataset configuration file 
+│ └── annotations.csv   ← original annotation metadata 
+├── output/ 
+│   ├── train/          ← own training outputs, metrics, plots and weights 
+│   └── test/           ← own testing outputs, predictions and evaluation summaries
+├── weights/            ← pretrained donanet_weights.pt
+├── runs/               ← storage for testing donanet_weights.pt
 └── docs/
 ```
+Training outputs are saved under:
+
+```text
+output/train/YYYYMMDD/
+
+The main trained weights are saved as:
+
+```text
+output/train/YYYYMMDD/weights/best.pt
+output/train/YYYYMMDD/weights/last.pt
+
+Testing outputs are saved under:
+
+```text
+output/test/predictions_YYYYMMDD_HHMM/

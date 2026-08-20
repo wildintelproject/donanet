@@ -3,12 +3,12 @@
 ## DonaNet & WildINTEL
 
 **DonaNet** is a [YOLO](https://docs.ultralytics.com/)-based neural network developed as part of the
-**[WildINTEL project](https://wildintel.eu/)**, an initiative dedicated to the **semi**automated monitoring of
+**[WildINTEL project](https://wildintel.eu/)**, an initiative dedicated to the **semi**-automated monitoring of
 wildlife through artificial intelligence and camera-trap imagery.
 
 The network has been specifically trained to detect and classify the mammals that inhabit
 [Doñana National Park](https://www.miteco.gob.es/es/red-parques-nacionales/nuestros-parques/donana/)
-(Spain), one of the most important ~~wetland~~ **Mediterranean** ecosystems in  Europe.
+(Spain), one of the most important **Mediterranean** ecosystems in Europe.
 
 ---
 
