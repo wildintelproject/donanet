@@ -27,14 +27,14 @@ jointly in a single inference step.
 | Task                   | Detection + classification   |
 | Output classes         | 16 (see table below)         |
 | Input resolution       | 832 × 832 px                 |
-| Parameters             | ≈ 68 M                       |
-| Computational cost     | ≈ 435.68 GFLOPs              |
+| Parameters             | ≈ 88 M                       |
+| Computational cost     | ≈ 230.4 GFLOPs               |
 
 ---
 
 ## Detected Classes
 
-The model outputs 16 classes: 13 mammal species, birds (as a single class), humans, and vehicles.
+The model outputs 16 classes: 14 mammal species, birds (as a single class), and one label for humans and vehicles.
 Empty images — those containing no annotated object — were used as negative training examples but
 are not a separate output class.
 
@@ -51,11 +51,12 @@ are not a separate output class.
 | *Meles meles*          | European badger        |                                            |
 | *Vulpes vulpes*        | Red fox                |                                            |
 | *Canis familiaris*     | Dog                    |                                            |
-| Lagomorph              | Rabbit / hare          | Merges *Oryctolagus cuniculus* and *Lepus granatensis* |
+| *Oryctolagus cuniculus*| European rabbit        |                                            |
+| *Lepus granatensis*    | Iberian hare           |                                            |
 | *Herpestes ichneumon*  | Egyptian mongoose      |                                            |
 | Ave                    | Bird (any species)     | All bird species collapsed into one class  |
-| Homo sapiens           | Human                  |                                            |
-| Vehicle                | Vehicle                |                                            |
+| Homo sapiens           | Human and vehicle      |                                            |
+
 
 ---
 
@@ -63,12 +64,13 @@ are not a separate output class.
 
 All experiments were based on a single camera-trap dataset collected in Doñana National Park.
 
-| Property                    | Value                                 |
-|-----------------------------|---------------------------------------|
-| Total images                | 52,247                                |
-| Total bounding-box annotations | 60,100                             |
-| Classes                     | 17 (16 + Empty)                       |
-| Annotation format           | YOLO normalised bounding boxes        |
+| Property                    | Value                                    |
+|-----------------------------|------------------------------------------|
+| Unique images               | 51,874                                   |
+| Total bounding-box annotations | 60,100                                |
+| Classes                     | 16                                      |
+| Negative examples           | Empty images, not used as an output class|
+| Annotation format           | YOLO normalised bounding boxes           |
 
 ### Class distribution
 
@@ -82,19 +84,21 @@ dataset and each split.
 | *Canis familiaris*     | 1,591 / 1,844       | 1,288 / 1,487       | 153 / 187         | 150 / 170          |
 | *Cervus elaphus*       | 3,034 / 4,528       | 2,522 / 3,773       | 207 / 276         | 305 / 479          |
 | *Dama dama*            | 2,998 / 3,862       | 2,476 / 3,115       | 295 / 411         | 227 / 336          |
+| *Oryctolagus cuniculus*| 3,399 / 3,620       | 1,873 / 2,011       | 752 / 801         | 774 / 808          |
 | Empty                  | 7,935 / —           | 5,877 / —           | 1,022 / —         | 1,036 / —          |
 | *Equus* sp.            | 3,108 / 7,360       | 2,502 / 5,885       | 303 / 602         | 303 / 873          |
 | *Felis catus*          | 3,418 / 3,455       | 1,417 / 1,444       | 1,001 / 1,006     | 1,000 / 1,005      |
 | *Genetta genetta*      | 1,745 / 1,799       | 1,428 / 1,474       | 165 / 167         | 152 / 158          |
 | *Herpestes ichneumon*  | 2,864 / 3,631       | 2,322 / 2,951       | 260 / 326         | 282 / 354          |
-| Homo sapiens           | 2,823 / 4,243       | 2,113 / 3,054       | 344 / 578         | 366 / 611          |
-| Lagomorph              | 5,278 / 5,581       | 3,530 / 3,742       | 872 / 927         | 876 / 912          |
+| Homo sapiens           | 2,991 / 4,471       | 2,229 / 3,221       | 368 / 609         | 394 / 641          |
+| *Lepus granatensis*    | 1,879 / 1,961       | 1,657 / 1,731       | 120 / 126         | 102 / 104          |
 | *Lynx pardinus*        | 2,872 / 4,006       | 2,307 / 3,227       | 265 / 359         | 300 / 420          |
 | *Meles meles*          | 3,688 / 3,797       | 3,081 / 3,180       | 350 / 357         | 257 / 260          |
 | *Sus scrofa*           | 3,035 / 4,120       | 2,498 / 3,373       | 288 / 360         | 249 / 387          |
-| Vehicle                | 228 / 228           | 167 / 167           | 31 / 31           | 30 / 30            |
 | *Vulpes vulpes*        | 2,925 / 3,068       | 2,452 / 2,592       | 275 / 277         | 198 / 199          |
-| **Total**              | **52,247 / 60,100** | **39,777 / 46,654** | **6,247 / 6,553** | **6,223 / 6,893**  |
+| **Total**              | **52,187 / 60,100** | **39,726 / 46,654** | **6,240 / 6,553** | **6,221 / 6,893**  |
+
+The dataset contains 51,874 unique images. The total number of images (52,187) summed across categories is higher because a single image may contain individuals from multiple categories and is therefore counted once for each relevant label.
 
 ### Dataset split strategy
 
@@ -119,24 +123,22 @@ DonaNet (YOLO-1stage) was trained as an end-to-end one-stage model using the
 | Framework              | PyTorch (via Ultralytics)          |
 | Input resolution       | 832 × 832 px                       |
 | Batch size             | 16                                 |
-| Initial learning rate  | lr0 = 1 × 10⁻⁴                    |
+| Initial learning rate  | lr0 = 1 × 10⁻⁴                     |
 | Final learning rate    | lrf = 0.01                         |
 | Max epochs             | 1,000                              |
 | Early stopping patience| 100 consecutive epochs             |
-| Seeds                  | 0, 2, 10 (three independent runs)  |
-| Final training lengths | 157, 218, and 212 epochs           |
+| Final training lengths | 581 / 374 / 714 epochs             |
 
-The model was trained on the full 17-class Doñana dataset (Table 1 in the paper) to perform
-localisation and class assignment simultaneously within a single architecture over the harmonised
-16-class label space (Empty images were used as negative training examples but not as a
-prediction class).
+The model was trained on the Doñana dataset to perform localisation and class assignment
+simultaneously within a single architecture over the harmonised 16-class output label space.
+Empty images were used as negative training examples but not as a prediction class.
 
 ---
 
 ## Evaluation
 
-Performance was evaluated on the held-out test split using **Precision**, **Recall**, **F1
-score**, and **Matthews Correlation Coefficient (MCC)** as the primary metrics. Both
+Performance was evaluated on the held-out test split using **Precision**, **Recall**, and **F1
+score** as the primary metrics. Both
 micro-averaged (instance-weighted) and macro-averaged (class-weighted) variants were reported to
 account for class imbalance.
 
@@ -150,16 +152,18 @@ detection produced in an empty image was counted as a false positive.
 
 ### Results
 
-On the full 17-class annotation task, DonaNet achieved:
+On the held-out test split, DonaNet achieved:
 
-| Metric         | Value  |
-|----------------|--------|
-| Macro F1       | 89.2 % |
-| MCC            | 0.885  |
+| Metric         | Micro value | Macro value |
+|----------------|-------------|-------------|
+| Recall         | 92.4 %      | 92.1 %      |
+| Precision      | 90.7 %      | 89.0 %      |
+| F1 - score     | 91.6 %      | 90.4 %      |
+
 
 These results were obtained on the same Doñana test split used throughout the study. For
 comparison, the best two-stage pipeline (DeepFaune detector + ViT-Large classifier) achieved
-95.6% F1 and 0.95 MCC on the same task, at the cost of a substantially higher computational
+92.1%/91.6% F1-score on the same task, at the cost of a substantially higher computational
 footprint and a more complex inference workflow.
 
 ---
@@ -175,7 +179,7 @@ full in the following manuscript:
 > Universidad de Huelva — Campus El Carmen, Avda. Fuerzas Armadas, s/n, 21071 Huelva, Spain.  
 > *(Revised integrated draft, 2025)*
 
-The study demonstrated that, for the Doñana dataset, separate optimisation of detection and
-classification yields stronger and more balanced annotation performance than a YOLO end-to-end
-approach, and provides practical guidance for selecting computer vision tools in biodiversity
-monitoring applications.
+The study demonstrated that, for the Doñana dataset, 
+the one-stage end-to-end YOLO approach achieves annotation performance 
+similar to the optimised two-stage detection-and-classification workflow, 
+while providing a simpler inference pipeline for biodiversity monitoring.

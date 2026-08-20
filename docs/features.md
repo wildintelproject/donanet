@@ -1,46 +1,100 @@
 # Features
 
-## Pre-trained YOLO network for Doñana
 
-DonaNet ships with a **ready-to-use YOLO model** specifically trained on camera-trap imagery from
+## Pretrained YOLO network for Doñana
+
+DonaNet provides a ready-to-use YOLO model trained on camera-trap imagery from
 [Doñana National Park](https://www.miteco.gob.es/es/red-parques-nacionales/nuestros-parques/donana/).
-No training required — download the weights and start detecting mammals immediately.
 
-- Detects and classifies the mammal species present in Doñana National Park.
-- Optimised for the lighting conditions, vegetation and camera angles typical of the park.
-- Based on [Ultralytics YOLO](https://docs.ultralytics.com/), one of the most performant and
-  widely adopted object-detection architectures.
-- Weights are versioned and distributed alongside this repository so you always know exactly
-  which model version produced a given result.
+The pretrained weights are distributed through GitHub Releases because the weights file is large.
+After downloading the released weights file, place it in the `weights/` directory and rename it to:
+
+`donanet_weights.pt`
+
+The expected path is:
+
+`weights/donanet_weights.pt`
+
+No training is required to test the pretrained model.
+
+- Detects and classifies mammal species present in Doñana National Park.
+- Adapted to camera-trap imagery from Doñana National Park.
+- Based on [Ultralytics YOLO](https://docs.ultralytics.com/).
+- Can generate predictions and evaluation statistics when the required `annotations.csv` file is available.
 
 ---
 
-## Retraining on new datasets
+## Training on YOLO-format datasets
 
-The included **`donanet.py`** CLI makes it straightforward to fine-tune the network with your
-own image datasets, adapting the model to new species, locations or camera setups.
+The included `donanet.py` CLI allows training a new YOLOv8x6 model on the DonaNet dataset or on another compatible YOLO-format dataset.
 
-- **Dataset preparation** — automatically splits a raw collection of images and YOLO-format labels
-  into `train / val / test` partitions with configurable ratios.
-- **Fine-tuning** — resume training from the provided weights or from any Ultralytics checkpoint,
-  with full control over epochs, batch size and model variant.
-- **Evaluation** — run inference or evaluation on the test partition and collect standard detection
-  metrics (mAP, precision, recall).
-- **Inspection** — list available weights and dataset statistics at a glance with `donanet info`
-  and `donanet list-datasets`.
+The dataset must follow the expected YOLO directory structure:
+
+`dataset/images/train/`
+`dataset/images/val/`
+`dataset/images/test/`
+`dataset/labels/train/`
+`dataset/labels/val/`
+`dataset/labels/test/`
+`dataset/data.yaml`
+
+- Uses `dataset/data.yaml` as the dataset configuration file.
+- Uses pretrained `yolov8x6.pt` weights as the starting model.
+- Saves training outputs under `output/training/YYYYMMDD/`.
+- Saves the main trained weights as `best.pt` and `last.pt`.
+- Allows newly trained weights to be tested with the same `test` command.
+
+---
+
+## Testing and evaluation
+
+DonaNet can run inference or evaluation using either the pretrained DonaNet weights or newly trained weights.
+
+Testing the pretrained weights:
+
+`python donanet.py test --weights weights/donanet_weights.pt --conf 0.25`
+
+Outputs are saved under:
+
+`run/predictions_YYYYMMDD_HHMM/`
+
+Testing newly trained weights:
+
+`python donanet.py test --weights output/training/YYYYMMDD/weights/best.pt --conf 0.25`
+
+Outputs are saved under:
+
+`output/testing/predictions_YYYYMMDD_HHMM/`
+
+The main outputs are:
+
+`predictions.csv`
+`metrics_summary.xlsx`
+
+The `metrics_summary.xlsx` file is generated only when `dataset/annotations.csv` exists and follows the expected format.
 
 ---
 
 ## Interactive CLI
 
-All functionality is exposed through an interactive command-line interface built with
-[Typer](https://typer.tiangolo.com/) and [Rich](https://rich.readthedocs.io/), providing
-a clean experience with coloured output, progress bars and inline help.
+All functionality is exposed through a command-line interface built with
+[Typer](https://typer.tiangolo.com/) and [Rich](https://rich.readthedocs.io/).
 
-```bash
-# Run inference with the pre-trained weights
-python donanet.py test --weights weights/donana/best.pt
+Available commands include:
 
-# Fine-tune on a new dataset
-python donanet.py train --model weights/donana/best.pt --epochs 50 --name my_run
-```
+- `train` — train DonaNet using the standard YOLOv8x6 configuration.
+- `test` — run inference or evaluation with a selected weights file.
+- `info` — show available weights and dataset summary.
+- `list-datasets` — show dataset partitions and image counts.
+
+Example commands:
+
+`python donanet.py test --weights weights/donanet_weights.pt --conf 0.25`
+
+`python donanet.py train`
+
+`python donanet.py test --weights output/training/YYYYMMDD/weights/best.pt --conf 0.25`
+
+`python donanet.py info`
+
+`python donanet.py list-datasets`
