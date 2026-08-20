@@ -1,5 +1,4 @@
-# <img src="img/wildIntel_logo.webp" alt="Wildintel Logo" height="60">  DonaNet
-
+# <img src="img/wildIntel_logo.webp" alt="Wildintel Logo" height="60"> DonaNet
 
 ![Python](https://img.shields.io/badge/python-3.11-blue.svg)
 ![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
@@ -12,115 +11,371 @@
 
 ## Neural network for detecting and classifying mammals in Doñana National Park
 
-**DonaNet** is a neural network designed to detect and classify the mammals that inhabit
-[Doñana National Park](https://www.miteco.gob.es/es/red-parques-nacionales/nuestros-parques/donana/) (Spain)**,  located in the Mediterranean biogeographical region, within the WildINTEL project, funded by Biodiversa+**. 
+**DonaNet** is a neural network designed to detect and classify the mammals that inhabit [Doñana National Park](https://www.miteco.gob.es/es/red-parques-nacionales/nuestros-parques/donana/) in Spain, located in the Mediterranean biogeographical region, within the WildINTEL project, funded by Biodiversa+.
 
-This repository contains the **weights file** produced by a training process of a
-[YOLO](https://docs.ultralytics.com/) network specifically adapted to Doñana National Park.
-The dataset used during this training process is available at XXXXX.
+This repository contains the **weights file** produced by a training process of a [YOLO](https://docs.ultralytics.com/) network specifically adapted to Doñana National Park.
 
-The repository also includes the **`donanet.py`** application, which allows retraining this network
-with new image datasets.
+The dataset used during this training process is available at https://github.com/wildintelproject/donadataset.
 
-## 📚 Documentation
+The repository also includes the **`donanet.py`** application, which allows retraining this network with new image datasets.
 
-Full documentation — installation guide, user guide and administrator guide — is available under
-the `docs/:
+## Documentation
 
-- Installation guide: `docs/installation-guide.md`
-- User guide: `docs/user-guide.md`
-- Administrator guide: `docs/admin-guide.md`
+Full documentation — installation guide, user guide and administrator guide — is available under the `docs/` directory:
 
-You can also access the online documentation at https://wildintelproject.github.io/donanet
+* Installation guide: `docs/installation-guide.md`
+* User guide: `docs/user-guide.md`
+* Administrator guide: `docs/admin-guide.md`
 
-## 🚀 Features
+You can also access the online documentation at https://wildintelproject.github.io/donanet.
 
-- Interactive CLI powered by [Typer](https://typer.tiangolo.com/) and [Rich](https://rich.readthedocs.io/)
-- Automatic dataset splitting into `train / val / test` partitions with configurable ratios
-- Fine-tune any Ultralytics YOLO model and save weights under `weights/`
-- Run inference or evaluation on the test partition with a chosen weight file
-- Inspect dataset statistics and available weights at a glance
-- Designed for seamless integration with the WildINTEL image storage
+## Features
 
-## 📋 Requirements
+* Interactive CLI powered by [Typer](https://typer.tiangolo.com/) and [Rich](https://rich.readthedocs.io/)
+* Support for YOLO-format datasets organised into `images/` and `labels/` directories with `train`, `val`, and `test` subsets
+* Use pretrained DonaNet weights stored under `weights/`
+* Train DonaNet through a standard CLI wrapper around Ultralytics YOLO
+* Save training outputs, logs, metrics, plots and weights under `output/training/`
+* Run inference or evaluation on the test partition with a chosen weights file
+* Generate `predictions.csv` and DonaNet test statistics after testing
+* Inspect dataset statistics and available weights at a glance
+* Designed for integration with the WildINTEL image storage workflow
 
-- Python 3.11+
-- [uv](https://github.com/astral-sh/uv) (for dependency management and packaging)
-- CUDA-capable GPU recommended for training (CPU fallback supported)
+## Requirements
 
-## 🧭 Overview
+* Python 3.11+
+* `pip`
+* CUDA-capable GPU recommended for training
+* CPU fallback supported, but training will be significantly slower
+* `uv` is optional and can be used as an alternative dependency-management workflow
 
-`donanet.py` exposes a set of Typer sub-commands that drive Ultralytics YOLO:
+## Workflow overview
 
-| Command            | Description                                            |
-|--------------------|--------------------------------------------------------|
-| `prepare-dataset`  | Split images + labels into `train / val / test`        |
-| `train`            | Fine-tune a YOLO model and write weights to `weights/` |
-| `test`             | Run inference or evaluation on the test partition      |
-| `list-datasets`    | Show dataset partitions and their image counts         |
-| `info`             | Show available weights and dataset summary             |
+DonaNet supports two main workflows: training with the included toy dataset and testing with pretrained or newly trained weights.
+
+### Workflow 1 — Train DonaNet with the included toy dataset
+
+Use this workflow to verify that the DonaNet training pipeline works correctly.
+
+This repository can include a small toy dataset under `dataset/`. The toy dataset follows the same YOLO directory structure as the full DonaDataset, but it is only intended for testing the workflow.
+
+The training step does not introduce a new model architecture. It uses the standard Ultralytics YOLO training workflow through the DonaNet CLI wrapper.
+
+The training command uses:
+
+* pretrained `yolov8x.pt` weights as the starting model;
+* `dataset/data.yaml` as the dataset configuration file;
+* the standard DonaNet training configuration.
+
+Training outputs are saved automatically under:
+
+```text
+output/training/YYYYMMDD/
+```
+
+The main trained weights are saved as:
+
+```text
+output/training/YYYYMMDD/weights/best.pt
+output/training/YYYYMMDD/weights/last.pt
+```
+
+Ultralytics YOLO also generates its standard training outputs in the same directory, including training logs, plots, metrics and result files.
+
+After training, the newly trained weights can be tested using the test command and pointing to the generated `best.pt` file.
+
+### Workflow 2 — Use the pretrained DonaNet weights
+
+Use this workflow if you want to test the DonaNet model already trained by the project team.
+
+Because the pretrained model weights are large files, they are distributed through GitHub Releases instead of being stored directly in the repository.
+
+After downloading the released weights file, place it in the `weights/` directory and rename it to `donanet_weights.pt` so that it can be used with the standard DonaNet testing command.
+
+In this case, the pretrained weights are expected to be available as:
+
+```text
+weights/donanet_weights.pt
+```
+
+Only the testing step is required.
+
+The test command runs inference on the test images and generates:
+
+```text
+run/predictions_YYYYMMDD_HHMM/
+├── predictions.csv
+└── metrics_summary.xlsx
+```
+
+The `predictions.csv` file contains one row per detected object.
+
+The `metrics_summary.xlsx` file contains the evaluation statistics generated by the DonaNet testing logic implemented in `donanet.py`.
+
+### Commands overview
+
+`donanet.py` exposes a set of Typer subcommands that support training, testing and inspection.
+
+| Command         | Description                                                                                                                                                                                                       |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `train`         | Train DonaNet with the standard Ultralytics YOLOv8x configuration and save outputs under `output/training/YYYYMMDD/`.                                                                                             |
+| `test`          | Run inference or evaluation using selected weights. Pretrained weights save outputs under `run/predictions_YYYYMMDD_HHMM/`; newly trained weights save outputs under `output/testing/predictions_YYYYMMDD_HHMM/`. |
+| `list-datasets` | Show dataset partitions and their image counts.                                                                                                                                                                   |
+| `info`          | Show available weights and dataset summary.                                                                                                                                                                       |
 
 ### Dataset layout
 
-```
+A small toy dataset can be placed directly under `dataset/` for testing the DonaNet workflow.
+
+The full DonaDataset is maintained separately at https://github.com/wildintelproject/donadataset.
+
+```text
 dataset/
-├── train/
-│   ├── images/   ← training images (.jpg / .png)
-│   └── labels/   ← YOLO-format .txt annotations
-├── val/
-│   ├── images/
-│   └── labels/
-└── test/
-    ├── images/
-    └── labels/
+├── images/    ← training images (.jpg / .png)
+│   ├── train/
+│   ├── val/
+│   └── test/
+├── labels/    ← YOLO-format .txt annotations
+│   ├── train/
+│   ├── val/
+│   └── test/
+├── data.yaml         ← required document for training and testing
+└── annotations.csv   ← original annotation metadata and class-label information
 ```
 
-Each label file follows the YOLO format — one row per object:
+Each image has a corresponding `.txt` label file with the same base filename.
 
-```
+Each label file follows the **YOLO bounding box normalized format** — one row per object:
+
+```text
 <class_id> <x_center> <y_center> <width> <height>
 ```
 
 All values are normalised to `[0, 1]` relative to the image dimensions.
 
+The `<class_id>` value corresponds to the class index defined in `dataset/data.yaml`.
+
+The accompanying `annotations.csv` file provides the original annotation metadata, including image name, class label, bounding box coordinates, image path, category and contributor/source information.
+
+If `annotations.csv` is missing or does not follow the expected format, the test command can still generate predictions, but it cannot generate the full statistics.
+
 ---
 
 ## Quick start
 
-### 0. Get the code
+### 0.1 Get the code
+
+Clone the DonaNet repository:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/wildintelproject/donanet.git
 cd donanet
 ```
 
-### 1. Install dependencies
+### 0.2 Install dependencies
+
+DonaNet requires **Python 3.11 or newer**.
+
+The recommended installation method is to use `pip` inside a Python virtual environment.
+
+#### Option A — install with pip
+
+Create a virtual environment:
 
 ```bash
-uv sync          # or: pip install -e .
+python -m venv .venv
 ```
 
-### 2. Prepare your dataset
+Activate the virtual environment.
 
-Place raw images inside a source directory, then split them:
+On Linux/macOS:
 
 ```bash
-python donanet.py prepare-dataset --source /path/to/raw --train 0.7 --val 0.2 --test 0.1
+source .venv/bin/activate
 ```
 
-### 3. Train
+On Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+On Windows Command Prompt:
+
+```cmd
+.venv\Scripts\activate
+```
+
+Install DonaNet and its required Python dependencies:
 
 ```bash
-python donanet.py train --model yolov8n.pt --epochs 50 --name my_run
+pip install -e .
 ```
 
-Weights are saved to `weights/my_run/best.pt` and `weights/my_run/last.pt`.
-
-### 4. Test
+To install documentation dependencies as well:
 
 ```bash
-python donanet.py test --weights weights/my_run/best.pt --conf 0.25
+pip install -e ".[docs]"
 ```
+
+#### Option B — install with uv
+
+If you prefer to use `uv`, make sure it is installed first:
+
+```bash
+uv --version
+```
+
+If this command fails, install `uv` first by following the official installation instructions.
+
+Then install the project dependencies:
+
+```bash
+uv sync
+```
+
+This command creates a local `.venv` environment and installs the dependencies defined in `pyproject.toml` and `uv.lock`.
+
+### 0.3 Activate the environment
+
+Before running DonaNet commands, activate the local virtual environment.
+
+On Linux/macOS:
+
+```bash
+source .venv/bin/activate
+```
+
+On Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+On Windows Command Prompt:
+
+```cmd
+.venv\Scripts\activate
+```
+
+### 1. Prepare your dataset
+
+Prepare your dataset according to the structure described in the **Dataset layout** section.
+
+A small toy dataset can be placed directly under `dataset/` to test the DonaNet workflow.
+
+To use the full DonaDataset, see:
+
+https://github.com/wildintelproject/donadataset
+
+To create your own dataset, follow the same structure described in the **Dataset layout** section. The dataset must contain images, YOLO annotation files, and a valid `data.yaml` file before training.
+
+The images and labels must be split into `train`, `val`, and `test` subsets.
+
+### 2. Train with the included toy dataset
+
+Use this step to verify that the DonaNet training workflow runs correctly.
+
+The repository can include a small toy dataset under `dataset/`. This dataset is only intended for testing the workflow. The training command does not introduce a new model architecture; it runs the standard Ultralytics YOLO training workflow using the DonaNet wrapper.
+
+Run:
+
+```bash
+python donanet.py train
+```
+
+The wrapper runs Ultralytics YOLO in detection mode using:
+
+* pretrained `yolov8x.pt` weights;
+* dataset configuration file `dataset/data.yaml`;
+* 1000 epochs;
+* early stopping with `patience=100`;
+* `batch=16`;
+* output directory `output/training/`.
+
+The training run name is generated automatically from the current date in `YYYYMMDD` format.
+
+Training outputs are saved under:
+
+```text
+output/training/YYYYMMDD/
+```
+
+The main trained weights are saved as:
+
+```text
+output/training/YYYYMMDD/weights/best.pt
+output/training/YYYYMMDD/weights/last.pt
+```
+
+Ultralytics YOLO also generates standard training statistics and plots inside the same training run directory.
+
+### 3. Test newly trained weights
+
+After training, test the newly trained model by pointing the test command to the generated `best.pt` file:
+
+```bash
+python donanet.py test --weights output/training/YYYYMMDD/weights/best.pt --conf 0.25
+```
+
+Replace `YYYYMMDD` with the training run folder created during training.
+
+The outputs are saved under:
+
+```text
+output/testing/predictions_YYYYMMDD_HHMM/
+```
+
+The main outputs are:
+
+```text
+output/testing/predictions_YYYYMMDD_HHMM/predictions.csv
+output/testing/predictions_YYYYMMDD_HHMM/metrics_summary.xlsx
+```
+
+If `dataset/annotations.csv` does not exist or does not follow the expected format, DonaNet will still save the predictions, but the statistics file cannot be generated.
+
+### 4. Test the pretrained DonaNet weights
+
+Use this option if you want to test the pretrained DonaNet model provided with this repository.
+
+The expected weights file is:
+
+```text
+weights/donanet_weights.pt
+```
+
+Only the testing step is required.
+
+Run:
+
+```bash
+python donanet.py test --weights weights/donanet_weights.pt --conf 0.25
+```
+
+By default, the test command uses:
+
+```text
+dataset/images/test/
+dataset/annotations.csv
+```
+
+The command saves predictions and evaluation statistics under:
+
+```text
+run/predictions_YYYYMMDD_HHMM/
+```
+
+The main test outputs are:
+
+```text
+run/predictions_YYYYMMDD_HHMM/predictions.csv
+run/predictions_YYYYMMDD_HHMM/metrics_summary.xlsx
+```
+
+The `predictions.csv` file contains one row per detected object.
+
+The `metrics_summary.xlsx` file is generated only when `dataset/annotations.csv` exists and follows the expected format. If `annotations.csv` is missing or incorrectly formatted, DonaNet will display a warning and skip the statistics generation step.
 
 ### 5. Inspect
 
@@ -133,35 +388,67 @@ python donanet.py list-datasets
 
 ## Main Commands
 
+Train with the included toy dataset:
+
 ```bash
-python donanet.py prepare-dataset --source /data/raw --train 0.7 --val 0.2 --test 0.1
-python donanet.py train --model yolov8n.pt --epochs 100 --name wildlife_v1
-python donanet.py train --model yolov8s.pt --epochs 100 --resume --name wildlife_v1
-python donanet.py test --weights weights/wildlife_v1/best.pt
-python donanet.py test --weights weights/wildlife_v1/best.pt --save-images
-python donanet.py list-datasets
-python donanet.py info
+python donanet.py train
 ```
+
+Training output:
+
+```text
+output/training/YYYYMMDD/
+```
+
+Test newly trained weights:
+
+```bash
+python donanet.py test --weights output/training/YYYYMMDD/weights/best.pt --conf 0.25
+```
+
+Output:
+
+```text
+output/testing/predictions_YYYYMMDD_HHMM/
+```
+
+Test the pretrained DonaNet weights:
+
+```bash
+python donanet.py test --weights weights/donanet_weights.pt --conf 0.25
+```
+
+Output:
+
+```text
+run/predictions_YYYYMMDD_HHMM/
+```
+
+Inspect project information:
+
+```bash
+python donanet.py info
+python donanet.py list-datasets
+```
+
+Replace `YYYYMMDD` with the training run folder created during training.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome. Please feel free to submit a Pull Request.
 
-## 📝 License
+## License
 
-This project is licensed under the GNU General Public License v3.0 or later - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 or later — see the [LICENSE](LICENSE) file for details.
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or, at your option, any later version.
 
-## 🏛️ Funding
+## Funding
 
-This work is part of the [WildINTEL project](https://wildintel.eu/), funded by the [Biodiversa+](https://www.biodiversa.eu/) Joint Research Call 2022-2023 "Improved
-transnational monitoring of biodiversity and ecosystem change for science and society (BiodivMon)". Biodiversa+ is the
-European co-funded biodiversity partnership supporting excellent research on biodiversity with an impact for policy and
-society. Biodiversa+ is part of the European Biodiversity Strategy for 2030 that aims to put Europe's biodiversity on a
-path to recovery by 2030 and is co-funded by the European Commission.
+This work is part of the [WildINTEL project](https://wildintel.eu/), funded by the [Biodiversa+](https://www.biodiversa.eu/) Joint Research Call 2022–2023 “Improved transnational monitoring of biodiversity and ecosystem change for science and society (BiodivMon)”.
 
-**WildINTEL has been co-funded by the [European Commission](https://commission.europa.eu/) (GA No. 101052342) and the following funding organisations: [Agencia Estatal de Investigación](https://www.aei.gob.es/) (Spain, PCI2023-145963-2, PCI2024-153489), [National Science Centre](https://www.ncn.gov.pl/?language=en) (Poland, UMO-2023/05/Y/NZ8/00104), the [Research Council of Norway](https://www.forskningsradet.no/en/) (Norway, NFR350962) and the [German Research Foundation](https://www.dfg.de/en/) (Germany).**
+Biodiversa+ is the European co-funded biodiversity partnership supporting excellent research on biodiversity with an impact for policy and society. Biodiversa+ is part of the European Biodiversity Strategy for 2030, which aims to put Europe’s biodiversity on a path to recovery by 2030 and is co-funded by the European Commission.
+
+WildINTEL has been co-funded by the [European Commission](https://commission.europa.eu/) (GA No. 101052342) and the following funding organisations: [Agencia Estatal de Investigación](https://www.aei.gob.es/) (Spain, PCI2023-145963-2, PCI2024-153489), [National Science Centre](https://www.ncn.gov.pl/?language=en) (Poland, UMO-2023/05/Y/NZ8/00104), the [Research Council of Norway](https://www.forskningsradet.no/en/) (Norway, NFR350962) and the [German Research Foundation](https://www.dfg.de/en/) (Germany).
